@@ -1,0 +1,36 @@
+﻿@using NostalgiaTV.Models.Configuration
+@{
+    ChannelConfiguration channel = ViewData["ChannelConfig"] as ChannelConfiguration ?? new ChannelConfiguration();
+    ViewData["Title"] = channel.Name;
+}
+
+
+<div class="w-100"
+     data-barba="container"
+     data-barba-namespace="simpson"
+     style="background: url('@channel.Background') no-repeat fixed center; background-size: cover;">
+    <div class="row align-items-end justify-content-center h-100 gx-0">
+        <div class="col-11 col-md-8 col-lg-7 col-xl-4 mb-3">
+            <div class="video-container" style="max-height: 500px;">
+                <div class="crt-effect"></div>
+                <video id="video"
+                       class="video-js w-100 vjs-theme-city"
+                       style="min-height: 400px;"
+                       controls
+                       autoplay
+                       muted
+                       preload="auto"
+                       data-setup='{
+                     "preload": "auto",
+                     "autoplay": true,
+                     "muted": true
+                   }'>
+                    <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a
+                        web browser that
+                    </p>
+                </video>
+            </div>
+        </div>
+    </div>
+</div>

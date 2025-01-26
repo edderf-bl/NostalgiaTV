@@ -1,0 +1,39 @@
+﻿name: deploy
+
+on:
+    push:
+        branches: ["master"]
+
+jobs:
+    create-docker-image:
+        runs-on: ubuntu-latest
+        steps:
+           - name: Checkout the code
+             uses: actions/checkout@v2
+
+           - name: Login to Github Container Registry
+             uses: docker/login-action@v2
+             with: 
+               registry: ghcr.io
+               username: ${{ github.actor }}
+               password: ${{ secrets.TOKEN_DEPLOY }}
+
+           - name: Build Page
+             run: |
+                  docker build ./NostalgiaTV --tag ghcr.io/edderf-bl/nostalgiatv:latest
+                  docker push ghcr.io/edderf-bl/nostalgiatv:latest
+    deploy:
+        needs: create-docker-image
+        runs-on: ubuntu-latest
+        steps:
+            - name: Install SSH
+              run: sudo apt install -y sshpass
+
+            - name: Deploy VPS
+              run: |
+                   sshpass -p ${{ secrets.AUTH_PASS }} ssh -o StrictHostKeyChecking=no ${{ secrets.AUTH_SERVER }} << EOF
+                   cd ~/docker/nostalgiatv
+                   docker login ghcr.io -u edderf-bl -p ${{ secrets.TOKEN_DEPLOY }}
+                   docker pull ghcr.io/edderf-bl/nostalgiatv:latest
+                   docker-compose down
+                   docker-compose up -d

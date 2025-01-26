@@ -1,0 +1,23 @@
+{
+  "version": "3.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "@microsoft/signalr@6.0.6",
+      "destination": "wwwroot/lib/microsoft/signalr/"
+    },
+    {
+      "library": "video.js@8.21.0",
+      "destination": "wwwroot/lib/video.js/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "videojs-playLists@0.2.0",
+      "destination": "wwwroot/lib/videojs-playLists/"
+    },
+    {
+      "library": "videojs-overlay@4.0.0",
+      "destination": "wwwroot/lib/videojs-overlay/"
+    }
+  ]
+}

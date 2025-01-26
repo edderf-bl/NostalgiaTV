@@ -1,0 +1,31 @@
+﻿@using NostalgiaTV.Models.Configuration
+@{
+    ViewData["Title"] = "Inicio";
+    List<ChannelConfiguration> channelConfigurations = ViewData["ChannelsConfig"] as List<ChannelConfiguration> ?? new List<ChannelConfiguration>();
+} 
+
+
+<div class="w-100"
+     data-barba="container" 
+     data-barba-namespace="home"
+     style="background: url('/assets/images/background-loading-black-2.jpg') no-repeat fixed center; background-size: cover;">
+    <div class="h-100 d-flex flex-column justify-content-center align-items-center">
+        <h1 class="d-none">Nostalgia TV</h1>
+        <!--NostalgiaTV Logo-->
+        <div class="row w-100 justify-content-center">
+            <div class="col-xl-6 col-12">
+                <img class="w-100" src="~/assets/images/NOSTALGIA-TV-LOGO.png" style=" filter: drop-shadow(5px 5px 5px #222); " />
+            </div>
+        </div>
+        <!--Buttons Pages-->
+        <div class="row w-100 justify-content-center mb-5 pb-5 gap-2">
+            @foreach(ChannelConfiguration channelConfig in channelConfigurations){
+                <div class="col-xl-2 col-8">
+                    <a id="btnSimpson" class="btn btn-dark btn-serie" serie="@channelConfig.Name" asp-controller="@channelConfig.WebPath" data-barba="link">
+                        <img class="w-100 h-100" src="@(channelConfig.Logo)" style="object-fit: contain;" />
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
